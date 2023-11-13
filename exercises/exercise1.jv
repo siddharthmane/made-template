@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2023 Friedrich-Alexander-Universitat Erlangen-Nurnberg
 // SPDX-License-Identifier: AGPL-3.0-only
 
-// Example 1: Cars
+// Example 1: Airports
 // Learning goals:
 // - Understand the core concepts pipeline, block, and pipe
 // - Understand the general structure of a pipeline
