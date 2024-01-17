@@ -1,7 +1,5 @@
 import pandas as pd
 import requests
-import sqlite3
-import os
 
 # Function to download the dataset
 def download_dataset(url, file_name):
@@ -18,7 +16,7 @@ def download_dataset(url, file_name):
 # Function to perform data transformations and fix errors
 def transform_and_fix_errors(input_file, output_file):
     # Read the dataset into a DataFrame
-    df = pd.read_csv(input_file , encoding='latin-1', header=7, error_bad_lines=False)
+    df = pd.read_csv(input_file , encoding='latin-1', header=7, on_bad_lines='skip')
 
     # Perform your data transformations and error fixes here
     # Example: Fixing missing values
@@ -29,7 +27,7 @@ def transform_and_fix_errors(input_file, output_file):
     print(f"Transformed dataset saved as {output_file}")
 
 # Function to perform data cleaning
-def clean_dataset1(input_file, output_file):
+def clean_dataset(input_file, output_file):
     # Read the dataset into a DataFrame
     df = pd.read_csv(input_file)
 
@@ -38,24 +36,7 @@ def clean_dataset1(input_file, output_file):
     df.drop_duplicates(inplace=True)
 
     # Save the cleaned dataset
-    Sqlfilepath = os.path.join(os.getcwd(), "data", "hospital1.sqlite")
-    conn = sqlite3.connect(Sqlfilepath)
-    df.to_sql(output_file, conn, index=False)
-    print(f"Cleaned dataset saved as {output_file}")
-
-    # Function to perform data cleaning
-def clean_dataset2(input_file, output_file):
-    # Read the dataset into a DataFrame
-    df = pd.read_csv(input_file)
-
-    # Perform data cleaning operations
-    # Example: Drop duplicates
-    df.drop_duplicates(inplace=True)
-
-    # Save the cleaned dataset
-    Sqlfilepath = os.path.join(os.getcwd(), "data", "hospital2.sqlite")
-    conn = sqlite3.connect(Sqlfilepath)
-    df.to_sql(output_file, conn, index=False)
+    df.to_csv(output_file, index=False)
     print(f"Cleaned dataset saved as {output_file}")
 
 if __name__ == "__main__":
@@ -68,8 +49,8 @@ if __name__ == "__main__":
     downloaded_file2 = "downloaded_dataset2.csv"
     transformed_file1 = "transformed_dataset1.csv"
     transformed_file2 = "transformed_dataset2.csv"
-    cleaned_file1 = "hospital1.sqlite"
-    cleaned_file2 = "hospital2.sqlite"
+    cleaned_file1 = "cleaned_dataset1.csv"
+    cleaned_file2 = "cleaned_dataset2.csv"
 
     # Step 1: Download the datasets
     download_dataset(dataset_url1, downloaded_file1)
@@ -80,5 +61,5 @@ if __name__ == "__main__":
     transform_and_fix_errors(downloaded_file2, transformed_file2)
 
     # Step 3: Clean the datasets
-    clean_dataset1(transformed_file1, cleaned_file1)
-    clean_dataset2(transformed_file2, cleaned_file2)
+    clean_dataset(transformed_file1, cleaned_file1)
+    clean_dataset(transformed_file2, cleaned_file2)
