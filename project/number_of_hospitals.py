@@ -1,5 +1,6 @@
 import pandas as pd
 import requests
+import os
 
 # Function to download the dataset
 def download_dataset(url, file_name):
@@ -17,6 +18,7 @@ def download_dataset(url, file_name):
 def transform_and_fix_errors(input_file, output_file):
     # Read the dataset into a DataFrame
     df = pd.read_csv(input_file , encoding='latin-1', header=7, on_bad_lines='skip')
+    # df = pd.read_csv(input_file , encoding='latin-1', header=7, error_bad_lines=False)
 
     # Perform your data transformations and error fixes here
     # Example: Fixing missing values
@@ -45,12 +47,18 @@ if __name__ == "__main__":
     dataset_url2 = "https://www.landesdatenbank.nrw.de/ldbnrwws/downloader/00/tables/23112-04i_00.csv"
 
     # Local file names
-    downloaded_file1 = "downloaded_dataset1.csv"
-    downloaded_file2 = "downloaded_dataset2.csv"
-    transformed_file1 = "transformed_dataset1.csv"
-    transformed_file2 = "transformed_dataset2.csv"
-    cleaned_file1 = "cleaned_dataset1.csv"
-    cleaned_file2 = "cleaned_dataset2.csv"
+    # downloaded_file1 = "downloaded_dataset1.csv"
+    # downloaded_file2 = "downloaded_dataset2.csv"
+    downloaded_file1 = os.path.join(os.getcwd(), "data/downloaded_dataset1.csv")
+    downloaded_file2 = os.path.join(os.getcwd(), "data/downloaded_dataset2.csv")
+    transformed_file1 = os.path.join(os.getcwd(), "data/transformed_dataset1.csv")
+    transformed_file2 = os.path.join(os.getcwd(), "data/transformed_dataset2.csv")
+    # transformed_file1 = "transformed_dataset1.csv"
+    # transformed_file2 = "transformed_dataset2.csv"
+    cleaned_file1 = os.path.join(os.getcwd(), "data/cleaned_dataset1.csv")
+    cleaned_file2 = os.path.join(os.getcwd(), "data/cleaned_dataset2.csv")
+    # cleaned_file1 = "cleaned_dataset1.csv"
+    # cleaned_file2 = "cleaned_dataset2.csv"
 
     # Step 1: Download the datasets
     download_dataset(dataset_url1, downloaded_file1)
