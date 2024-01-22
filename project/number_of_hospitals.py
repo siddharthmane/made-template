@@ -36,6 +36,7 @@ def clean_dataset1(input_file):
     # Perform data cleaning operations
     # Example: Drop duplicates
     df.drop_duplicates(inplace=True)
+    print(df.head().to_string())
 
     # Save the cleaned dataset
     Sqlfilepath = os.path.join(os.getcwd(), "data", "hospital1.sqlite")
@@ -51,6 +52,7 @@ def clean_dataset2(input_file):
     # Perform data cleaning operations
     # Example: Drop duplicates
     df.drop_duplicates(inplace=True)
+    print(df.head())
 
     # Save the cleaned dataset
     Sqlfilepath = os.path.join(os.getcwd(), "data", "hospital2.sqlite")
