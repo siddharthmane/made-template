@@ -35,7 +35,7 @@ pipeline StopsPipeline {
     }
 
     block StopsTextFileInterpreter oftype TextFileInterpreter {
-        encoding: "utf-8";
+        encoding: "latin2";
     }
 
     block StopsCSVInterpreter oftype CSVInterpreter {
