@@ -39,11 +39,19 @@ BeddataFeedExtractor
             "date" oftype text,
             "region code" oftype text,
             "city" oftype text,
-            "Rehabililation facilities" oftype text,
-            "setup beds in rehab Total" oftype text
+            "Rehabililation facilities" oftype Integercheck,
+            "setup beds in rehab Total" oftype Integercheck
         ];
     }
 
+	valuetype Integercheck oftype integer {
+    	constraints: [GreaterThanZero];
+	}
+
+	constraint GreaterThanZero oftype RangeConstraint{
+    		lowerBound: 0;
+    		lowerBoundInclusive: false;
+	}
 	
     block BeddataLoader oftype SQLiteLoader {
         table: "beddata";
