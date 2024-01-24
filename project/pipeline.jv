@@ -1,0 +1,54 @@
+pipeline BeddataPipeline {
+
+BeddataFeedExtractor
+        -> BeddataTextFileInterpreter
+        -> BeddataMetaDataSelector
+        -> BeddataCSVInterpreter
+        -> BeddataColumnWriter
+        -> BedDataTableInterpreter
+        -> BeddataLoader;
+    
+
+    block BeddataTextFileInterpreter oftype TextFileInterpreter {
+	encoding: "latin2";
+    }
+
+    block BeddataMetaDataSelector oftype TextRangeSelector {
+        lineFrom: 10;
+        lineTo: 1900;
+    }
+
+    block BeddataCSVInterpreter oftype CSVInterpreter {
+	    delimiter: ';';
+    }
+
+    block BeddataColumnWriter oftype CellWriter {
+        at: range A1:E1;
+        write: ["date","region code","city","Rehabililation facilities","setup beds in rehab Total"];
+    }
+
+    
+
+    block BeddataFeedExtractor oftype HttpExtractor {
+	    url: "https://www.landesdatenbank.nrw.de/ldbnrwws/downloader/00/tables/23112-04i_00.csv";
+    }
+	
+    block BedDataTableInterpreter  oftype TableInterpreter {
+        header: true;
+        columns: [
+            "date" oftype text,
+            "region code" oftype text,
+            "city" oftype text,
+            "Rehabililation facilities" oftype text,
+            "setup beds in rehab Total" oftype text
+        ];
+    }
+
+	
+    block BeddataLoader oftype SQLiteLoader {
+        table: "beddata";
+        file: "./beddata.sqlite";
+    }
+
+   
+}
