@@ -43,16 +43,16 @@ def check_data_exists_in_sqlite(db_file, table_name):
 
 if __name__ == "__main__":
     data_folder = os.path.join(os.getcwd(), "data") 
-    sql_file_name1 = "hospital1.sqlite"  
-    sql_file_name2 = "hospital2.sqlite"  
+    sql_file_name1 = "beddata.sqlite"  
+    sql_file_name2 = "hospital.sqlite"  
 
     check_sql_file_exists(data_folder, sql_file_name1)
     check_sql_file_exists2(data_folder, sql_file_name2)
 
-    sqlite_db_file = os.path.join(os.getcwd(), "data", "hospital1.sqlite")
-    table_to_check = "hospital1" 
-    sqlite_db_file2 = os.path.join(os.getcwd(), "data", "hospital2.sqlite")
-    table_to_check2 = "hospital2" 
+    sqlite_db_file = os.path.join(os.getcwd(), "data", "beddata.sqlite")
+    table_to_check =  "beddata"
+    sqlite_db_file2 = os.path.join(os.getcwd(), "data", "hospital.sqlite")
+    table_to_check2 = "hospitaldata" 
 
     check_data_exists_in_sqlite(sqlite_db_file, table_to_check)
     check_data_exists_in_sqlite(sqlite_db_file2, table_to_check2)
