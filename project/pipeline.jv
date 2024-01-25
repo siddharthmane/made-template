@@ -58,5 +58,57 @@ BeddataFeedExtractor
         file: "./beddata.sqlite";
     }
 
+
+
+	HospitalBedsFeedExtractor
+        -> HospitalBedsTextFileInterpreter
+        -> HospitalBedsMetaDataSelector
+        -> HospitalBedsCSVInterpreter
+        -> HospitalBedsColumnWriter
+        -> HospitalBedsTableInterpreter
+        -> HospitalBedsLoader;
+    
+
+    block HospitalBedsTextFileInterpreter oftype TextFileInterpreter {
+	encoding: "latin2";
+    }
+
+    block HospitalBedsMetaDataSelector oftype TextRangeSelector {
+        lineFrom: 9;
+        lineTo: 1289;
+    }
+
+    block HospitalBedsCSVInterpreter oftype CSVInterpreter {
+	    delimiter: ';';
+    }
+
+    block HospitalBedsColumnWriter oftype CellWriter {
+        at: range A1:E1;
+        write: ["date","region code","city","Hospitals","Number of beds"];
+    }
+
+    
+
+    block HospitalBedsFeedExtractor oftype HttpExtractor {
+	    url: "https://www.landesdatenbank.nrw.de/ldbnrwws/downloader/00/tables/23111-01d_00.csv";
+    }
+	
+    block HospitalBedsTableInterpreter  oftype TableInterpreter {
+        header: true;
+        columns: [
+            "date" oftype text,
+            "region code" oftype text,
+            "city" oftype text,
+            "Hospitals" oftype Integercheck,
+            "Number of beds" oftype Integercheck
+        ];
+    }
+
+	
+    block HospitalBedsLoader oftype SQLiteLoader {
+        table: "hospitaldata";
+        file: "./hospital.sqlite";
+    }
+
    
 }
