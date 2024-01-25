@@ -12,6 +12,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      # Install npm
+      - name: Set up npm
+        uses: actions/setup-node@v3
+
+      - name: Install jayvee 
+        run: 
+          npm install -g @jvalue/jayvee-interpreter@0.2.0
         
       # Install python
       - name: Set up Python 3.11
